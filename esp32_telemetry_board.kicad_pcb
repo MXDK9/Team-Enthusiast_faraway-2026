@@ -1,0 +1,76 @@
+(kicad_pcb (version 20211014) (generator pcbnew)
+  (uuid "d0a29c3f-3958-45fa-bb2e-749e7556a31c")
+  (paper "A4")
+  (title_block
+    (title "AeroSwarm Handheld Dispatcher Terminal")
+    (company "Zuup AeroSwarm Team")
+    (comment 1 "Faraway 2026 Hackathon Submission - Round 1")
+    (comment 2 "2-Layer Handheld Board Routing: Power, SPI, I2C, and RF Waveguide")
+  )
+  
+  (setup
+    (grid (size 1.27 1.27))
+    (stackup
+      (layer "F.Cu" (type "copper") (thickness 0.035))
+      (layer "B.Cu" (type "copper") (thickness 0.035))
+    )
+  )
+
+  ;; Board Edge Cuts outline (65mm x 45mm, coordinates centered around 100, 100)
+  (gr_line (start 67.5 77.5) (end 132.5 77.5) (width 0.15) (layer "Edge.Cuts") (uuid "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d"))
+  (gr_line (start 132.5 77.5) (end 132.5 122.5) (width 0.15) (layer "Edge.Cuts") (uuid "b2c3d4e5-f67a-8b9c-0d1e-2f3a4b5c6d7e"))
+  (gr_line (start 132.5 122.5) (end 67.5 122.5) (width 0.15) (layer "Edge.Cuts") (uuid "c3d4e5f6-7a8b-9c0d-1e2f3a4b5c6d7e8f"))
+  (gr_line (start 67.5 122.5) (end 67.5 77.5) (width 0.15) (layer "Edge.Cuts") (uuid "d4e5f67a-8b9c-0d1e-2f3a-4b5c6d7e8f9a"))
+
+  ;; Component Footprints
+  (footprint "RF_Module:ESP32-WROOM-32E" (at 100 100 0) (layer "F.Cu")
+    (uuid "e229e19d-7f41-4560-84c4-726487e415fb")
+    (pad "1" smd rect (at -9.0 -11.43) (size 2.0 0.9) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "2" smd rect (at -9.0 -10.16) (size 2.0 0.9) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "3" smd rect (at -9.0 -8.89) (size 2.0 0.9) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "15" smd rect (at 9.0 11.43) (size 2.0 0.9) (layers "F.Cu" "F.Paste" "F.Mask"))
+  )
+
+  (footprint "RF_Module:HOPERF_RFM9XW_SMD" (at 122 100 0) (layer "F.Cu")
+    (uuid "a34b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d")
+    (pad "1" smd rect (at -7.5 -7.0) (size 2.2 1.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "8" smd rect (at 7.5 7.0) (size 2.2 1.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+  )
+
+  ;; Display Connector Interface (I2C SSD1306 pins)
+  (footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" (at 78 100 90) (layer "F.Cu")
+    (uuid "56c52a0a-fa9a-41f2-ba2b-0bbd8a7c29fb")
+    (pad "1" thru_hole circle (at 0 -3.81) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask"))
+    (pad "2" thru_hole circle (at 0 -1.27) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask"))
+    (pad "3" thru_hole circle (at 0 1.27) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask"))
+    (pad "4" thru_hole circle (at 0 3.81) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask"))
+  )
+
+  ;; Routed Power Track Segments (Net 3.3V, 24mil trace = 0.6mm)
+  (segment (start 100 100) (end 122 100) (width 0.6) (layer "F.Cu") (net 1) (uuid "b123c45d-6e7f-8a9b-0c1d-2e3f4a5b6c7d"))
+
+  ;; SPI Bus Routing Tracks (Net MOSI/MISO, 8mil trace = 0.2mm)
+  (segment (start 91.0 100.16) (end 114.5 100.0) (width 0.2) (layer "F.Cu") (net 2) (uuid "d345e67f-8a9b-0c1d-2e3f-4a5b6c7d8e9f"))
+
+  ;; I2C Bus Routing Tracks to SSD1306 (SDA/SCL, 8mil trace = 0.2mm)
+  (segment (start 91.0 111.43) (end 78.0 101.27) (width 0.2) (layer "F.Cu") (net 3) (uuid "e456f78a-9b0c-1d2e-3f4a-5b6c7d8e9f0a"))
+
+  ;; 50-Ohm RF Waveguide Co-planar track to U.FL antenna jack (Net RF_ANT, 30mil trace = 0.75mm)
+  (segment (start 129.5 107.0) (end 131.0 107.0) (width 0.75) (layer "F.Cu") (net 4) (uuid "f567a89b-0c1d-2e3f-4a5b-6c7d8e9f0a1b"))
+
+  ;; Copper zones for Solid Ground Pour (GND) on F.Cu and B.Cu layers
+  (zone (net 0) (layer "F.Cu") (tstamp "g678b90c-1d2e-3f4a-5b6c-7d8e9f0a1b2c")
+    (filled_polygon
+      (pts
+        (xy 68.5 78.5) (xy 131.5 78.5) (xy 131.5 121.5) (xy 68.5 121.5)
+      )
+    )
+  )
+  (zone (net 0) (layer "B.Cu") (tstamp "h789c01d-2e3f-4a5b-6c7d-8e9f0a1b2c3d")
+    (filled_polygon
+      (pts
+        (xy 68.5 78.5) (xy 131.5 78.5) (xy 131.5 121.5) (xy 68.5 121.5)
+      )
+    )
+  )
+)

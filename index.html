@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackSwarm - Live Railway Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { margin: 0; padding: 0; background: #020308; color: white; font-family: 'Courier New', Courier, monospace; }
+        #map { height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        /* Advanced UI Panel Styles */
+        .ui-panel { 
+            position: relative; z-index: 10; 
+            background: linear-gradient(135deg, rgba(6,10,26,0.95) 0%, rgba(2,3,8,0.95) 100%);
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(0, 240, 255, 0.3); 
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+        
+        /* Train Icon Styles */
+        .train-icon-wrapper {
+            display: flex; justify-content: center; align-items: center;
+            width: 24px; height: 24px;
+            transition: transform 0.5s linear;
+        }
+        .train-svg {
+            width: 20px; height: 20px;
+            filter: drop-shadow(0 0 5px #00f0ff);
+        }
+        .train-icon-wrapper.delayed .train-svg {
+            filter: drop-shadow(0 0 5px #ff3366);
+        }
+        
+        /* Track line animation */
+        .leaflet-interactive {
+            stroke-dasharray: 10;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash { to { stroke-dashoffset: 1000; } }
+        
+        /* Sidebar item hover */
+        .train-card { cursor: pointer; transition: all 0.2s; }
+        .train-card:hover { transform: translateX(5px); border-color: #00f0ff; background: rgba(0,240,255,0.1); }
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <div id="map"></div>
+
+    <!-- Header Overlay -->
+    <header class="ui-panel absolute top-4 left-4 right-4 rounded-xl p-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="h-3 w-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#00f0ff]"></div>
+            <div>
+                <h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 tracking-widest">TRACKSWARM // MESH COMMAND</h1>
+                <p class="text-xs text-slate-400 font-bold">AUTONOMOUS DISASTER LOGISTICS</p>
+            </div>
+        </div>
+        <div class="flex gap-8 text-sm bg-black/40 px-6 py-2 rounded-lg border border-cyan-500/20">
+            <div class="text-center">
+                <div class="text-xs text-slate-500 mb-1">LIVE NODES</div>
+                <div id="active-count" class="text-xl font-bold text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.8)]">0</div>
+            </div>
+            <div class="text-center">
+                <div class="text-xs text-slate-500 mb-1">ANOMALIES</div>
+                <div id="anomaly-count" class="text-xl font-bold text-red-400 drop-shadow-[0_0_5px_rgba(248,113,113,0.8)]">0</div>
+            </div>
+            <div class="text-center">
+                <div class="text-xs text-slate-500 mb-1">NETWORK</div>
+                <div class="text-xl font-bold text-cyan-400 drop-shadow-[0_0_5px_#00f0ff]">SECURE</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Panel Overlay -->
+    <aside class="ui-panel absolute top-28 left-4 bottom-4 w-96 rounded-xl p-5 flex flex-col gap-4 overflow-hidden">
+        <div class="border-b border-cyan-500/30 pb-3 flex justify-between items-center">
+            <h2 class="text-cyan-400 font-bold flex items-center gap-2 text-lg">
+                <i data-lucide="crosshair" class="w-5 h-5"></i> TARGET LOCK
+            </h2>
+            <span class="text-[10px] bg-cyan-500/20 px-2 py-1 rounded text-cyan-300">CLICK TO TRACK</span>
+        </div>
+        
+        <div id="train-list" class="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
+            <div class="text-slate-500 italic flex items-center gap-2">
+                <i data-lucide="loader" class="animate-spin w-4 h-4"></i> Syncing Mesh...
+            </div>
+        </div>
+
+        <div class="border-t border-cyan-500/30 pt-3 h-40 flex flex-col bg-black/30 rounded-lg p-3">
+            <h2 class="text-indigo-400 font-bold text-xs mb-2 flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4"></i> AI NEGOTIATION LOGS
+            </h2>
+            <div id="agent-console" class="flex-1 overflow-y-auto text-[10px] text-indigo-300 space-y-1 font-mono">
+                <div>[SYS] Model bootstrap complete.</div>
+            </div>
+        </div>
+    </aside>
+
+    <script src="app.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

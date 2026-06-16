@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "version": 1
+  },
+  "project": {
+    "directory": "",
+    "name": "esp32_telemetry_board"
+  }
+}
