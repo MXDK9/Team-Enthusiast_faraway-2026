@@ -179,3 +179,41 @@ body {
     0% { transform: scale(0.4); opacity: 1; }
     100% { transform: scale(2.5); opacity: 0; }
 }
+
+/* --- PREMIUM CYBERPUNK HUD OVERRIDES --- */
+
+/* Force Leaflet Popups to match your premium dark mode theme */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #0b0f19 !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(48, 213, 200, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    border-radius: 8px;
+}
+
+/* Pulsing alert glow for UI warnings or active anomaly pins */
+.critical-pulse {
+    animation: diagnosticAlert 1.5s infinite alternate;
+}
+
+@keyframes diagnosticAlert {
+    0% {
+        box-shadow: 0 0 8px rgba(255, 159, 10, 0.4);
+        border-color: rgba(255, 159, 10, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 22px rgba(255, 159, 10, 0.8);
+        border-color: rgba(255, 159, 10, 1);
+    }
+}
+
+/* Style up the hardware control buttons at the top */
+.hardware-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hardware-btn:hover {
+    background-color: rgba(48, 213, 200, 0.15) !important;
+    border-color: #30d5c8 !important;
+    box-shadow: 0 0 15px rgba(48, 213, 200, 0.4);
+    transform: translateY(-2px);
+}

@@ -104,11 +104,11 @@
                 <div class="card-body" style="padding: 10px;">
                     <div class="blueprint-grid">
                         <button class="filter-btn active" id="view-map-btn" onclick="toggleDisplayMode('map')">🗺️ GIS Tracking</button>
-                        <button class="filter-btn" id="view-hw-btn" onclick="toggleDisplayMode('hardware')">🔌 PCB Schema</button>
+                        <button class="filter-btn hardware-btn" id="view-hw-btn" onclick="window.open('https://github.com/MXDK9/Team-Enthusiast_faraway-2026/tree/main/hardware', '_blank')">🔌 PCB Schema</button>
                     </div>
                     <div class="mini-grid">
-                        <a href="hardware/enclosure.scad" download class="vault-btn mini" style="margin:0; text-align:center; text-decoration:none;">📁 CAD Box</a>
-                        <a href="hardware/gerber.zip" download class="vault-btn mini" style="margin:0; text-align:center; text-decoration:none;">📦 Gerbers</a>
+                        <a href="https://github.com/MXDK9/Team-Enthusiast_faraway-2026/blob/main/hardware/enclosure.scad" target="_blank" class="vault-btn mini hardware-btn" style="margin:0; text-align:center; text-decoration:none;">📁 CAD Box</a>
+                        <a href="https://github.com/MXDK9/Team-Enthusiast_faraway-2026/tree/main/hardware" target="_blank" class="vault-btn mini hardware-btn" style="margin:0; text-align:center; text-decoration:none;">📦 Gerbers</a>
                     </div>
                 </div>
             </div>
@@ -282,7 +282,27 @@ trainFleet.forEach((t, index) => {
     fleetListContainer.appendChild(item);
 
     const m = L.marker([t.currLat, t.currLng], { icon: generateTrainIcon(t.id, index === 0) }).addTo(map);
-    m.bindTooltip(`<b>Node ID: ${t.id}</b><br>Telemetry Mode: Active Track Scan`, { direction: 'top' });
+    m.bindPopup(`
+        <div style="font-family: 'Arial', sans-serif; padding: 4px; min-width: 200px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: #30d5c8; font-weight: bold; font-size: 14px; letter-spacing: 0.5px;">${t.name}</span>
+                <span style="font-size: 11px; background: rgba(48, 213, 200, 0.1); padding: 2px 6px; border-radius: 4px; color: #30d5c8;">${t.id}</span>
+            </div>
+            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 10px;">
+                Sector: <strong style="color: #f8fafc;">${t.from} ➔ ${t.to}</strong>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                <div>
+                    <div style="font-size: 10px; color: #64748b; text-transform: uppercase;">RMS Energy</div>
+                    <div style="font-size: 13px; color: #f8fafc; font-weight: bold;">0.345 g</div>
+                </div>
+                <div>
+                    <div style="font-size: 10px; color: #64748b; text-transform: uppercase;">Kurtosis</div>
+                    <div style="font-size: 13px; color: #ff9f0a; font-weight: bold;">3.012</div>
+                </div>
+            </div>
+        </div>
+    `);
     m.on('click', () => selectActiveTrain(t.id, true));
     markerMap[t.id] = m;
 });
