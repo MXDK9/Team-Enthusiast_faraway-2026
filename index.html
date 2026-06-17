@@ -91,9 +91,11 @@
                 <p class="subtitle">PRIMARY THEME: RAILWAYS | REAL-TIME MULTI-ZONE TRANSIT STRUCTURAL TELEMETRY</p>
             </div>
         </div>
-        <div class="system-stats">
-            <div class="stat-box"><span class="pulse-green">●</span> <span id="live-node-count">50</span> CORRIDOR CORES ONLINE</div>
-            <div class="stat-box">NETWORK OVERHEAD: <span class="text-green">SECURE</span></div>
+        <div class="header-right">
+            <div class="railsense-control-panel">
+                <span id="railsense-mission-clock" class="metric-item mission-chronometer"></span>
+                <span class="metric-item control-status secure-glow">SYSTEM STATE: NOMINAL</span>
+            </div>
         </div>
     </header>
 
@@ -467,6 +469,31 @@ function processSystemAnomaly(peakGValue, assetId, currentTrackColor) {
 // --- RAILSENSE DASHBOARD NAVIGATION CORE ---
 document.addEventListener("DOMContentLoaded", () => {
     
+    // --- RAILSENSE LIVE MISSION CONTROL CHRONOMETER CORE ---
+    function runRailsenseMissionClock() {
+        const now = new Date();
+        const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+        const formattedDate = now.toLocaleDateString('en-US', dateOptions);
+        
+        let hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        hours = hours.toString().padStart(2, '0');
+        
+        const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+        const finalTimestamp = `${formattedDate} | ${formattedTime}`;
+
+        const clockElement = document.getElementById('railsense-mission-clock');
+        if (clockElement) {
+            clockElement.textContent = finalTimestamp;
+        }
+    }
+    runRailsenseMissionClock();
+    setInterval(runRailsenseMissionClock, 1000);
+
     // 1. GIS Tracking: Centers the map back to the primary Indian Rail matrix view
     const gisBtn = document.querySelector('.railsense-gis-btn');
     if (gisBtn) {

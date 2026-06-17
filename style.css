@@ -240,3 +240,51 @@ body {
     border-color: #30d5c8;
     box-shadow: 0 0 10px rgba(48, 213, 200, 0.3);
 }
+
+/* --- RAILSENSE TOP-RIGHT CONTROL PANEL STYLES --- */
+.railsense-control-panel {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Style for the new live date/time clock */
+.mission-chronometer {
+    color: #cbd5e1 !important; /* Neutral white text for readability */
+    background: rgba(28, 41, 56, 0.4);
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 242, 255, 0.1);
+    font-family: 'Poppins', monospace; /* Poppins looks great for clocks */
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Standardizing other status items in the bar */
+.control-status {
+    color: #f8fafc !important;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.secure-glow {
+    border-left: 3px solid #30d5c8; /* Left border green glow for health */
+    padding-left: 10px;
+}
+
+/* --- "UNSELECTING" THE BLUE GIS BUTTON --- */
+
+/* Reverting the special background color for the GIS Tracking button */
+/* Ensure this selector matches your actual HTML class precisely */
+.railsense-gis-btn {
+    background: transparent !important; /* Revert to default/transparent */
+    color: #cbd5e1 !important; /* Revert text color to standard gray-white */
+    box-shadow: none !important; /* Remove any selected glow/shadow */
+}
+
+/* Ensure the standard hover effect defined previously still works */
+.railsense-gis-btn:hover {
+    background-color: rgba(48, 213, 200, 0.15) !important;
+    color: #00f2ff !important;
+}
