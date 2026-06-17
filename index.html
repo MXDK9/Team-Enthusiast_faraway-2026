@@ -102,13 +102,11 @@
             <div class="control-card" style="flex-shrink: 0;">
                 <div class="card-header">🛠️ DESIGN BLUEPRINTS VAULT</div>
                 <div class="card-body" style="padding: 10px;">
-                    <div class="blueprint-grid">
-                        <button class="filter-btn active" id="view-map-btn" onclick="toggleDisplayMode('map')">🗺️ GIS Tracking</button>
-                        <button class="filter-btn hardware-btn" id="view-hw-btn" onclick="window.open('https://github.com/MXDK9/Team-Enthusiast_faraway-2026', '_blank')">🔌 PCB Schema</button>
-                    </div>
-                    <div class="mini-grid">
-                        <a href="https://github.com/MXDK9/Team-Enthusiast_faraway-2026/blob/main/enclosure.scad" target="_blank" class="vault-btn mini hardware-btn" style="margin:0; text-align:center; text-decoration:none;">📁 CAD Box</a>
-                        <a href="https://github.com/MXDK9/Team-Enthusiast_faraway-2026" target="_blank" class="vault-btn mini hardware-btn" style="margin:0; text-align:center; text-decoration:none;">📦 Gerbers</a>
+                    <div class="blueprint-buttons-grid">
+                        <button class="railsense-btn railsense-gis-btn">🗺️ GIS Tracking</button>
+                        <button class="railsense-btn railsense-pcb-btn">🔌 PCB Schema</button>
+                        <button class="railsense-btn railsense-cad-btn">📁 CAD Box</button>
+                        <button class="railsense-btn railsense-gerber-btn">📦 Gerbers</button>
                     </div>
                 </div>
             </div>
@@ -465,6 +463,44 @@ function processSystemAnomaly(peakGValue, assetId, currentTrackColor) {
         }
     }, 1200);
 }
+
+// --- RAILSENSE DASHBOARD NAVIGATION CORE ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. GIS Tracking: Centers the map back to the primary Indian Rail matrix view
+    const gisBtn = document.querySelector('.railsense-gis-btn');
+    if (gisBtn) {
+        gisBtn.addEventListener('click', () => {
+            if (typeof map !== 'undefined') {
+                map.setView([21.5937, 78.9629], 5, { animate: true });
+            }
+        });
+    }
+
+    // 2. PCB Schema: Opens the verified KiCad schematic file directly from root
+    const pcbBtn = document.querySelector('.railsense-pcb-btn');
+    if (pcbBtn) {
+        pcbBtn.addEventListener('click', () => {
+            window.open('https://github.com/MXDK9/Team-Enthusiast_faraway-2026/blob/main/esp32_telemetry_board.kicad_sch', '_blank');
+        });
+    }
+
+    // 3. CAD Box: Opens the parametric OpenSCAD physical chassis file directly from root
+    const cadBtn = document.querySelector('.railsense-cad-btn');
+    if (cadBtn) {
+        cadBtn.addEventListener('click', () => {
+            window.open('https://github.com/MXDK9/Team-Enthusiast_faraway-2026/blob/main/enclosure.scad', '_blank');
+        });
+    }
+
+    // 4. Gerbers: Redirects seamlessly to the root codebase directory for deployment evaluation
+    const gerberBtn = document.querySelector('.railsense-gerber-btn');
+    if (gerberBtn) {
+        gerberBtn.addEventListener('click', () => {
+            window.open('https://github.com/MXDK9/Team-Enthusiast_faraway-2026', '_blank');
+        });
+    }
+});
     </script>
 </body>
 </html>

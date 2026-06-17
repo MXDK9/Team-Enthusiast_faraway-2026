@@ -217,3 +217,26 @@ body {
     box-shadow: 0 0 15px rgba(48, 213, 200, 0.4);
     transform: translateY(-2px);
 }
+
+.blueprint-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+.railsense-btn {
+    background: #1C2538;
+    border: 1px solid #1F293D;
+    color: #E2E8F0;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+.railsense-btn:hover {
+    filter: brightness(1.2);
+    border-color: #30d5c8;
+    box-shadow: 0 0 10px rgba(48, 213, 200, 0.3);
+}
