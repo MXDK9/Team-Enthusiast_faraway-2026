@@ -330,14 +330,11 @@ function selectActiveTrain(id, panToTarget = false) {
     }
 
     const logsBox = document.getElementById('agent-logs');
-    let logClass = "text-blue";
-    let logMsg = `[ANALYSIS] Ingesting multi-axis data window for corridor segment ${trainData.from} to ${trainData.to}.`;
     
     if(trainData.trackColor === "#FF3B30") {
-        logClass = "text-orange";
-        logMsg = `[CRITICAL MONITOR] Sector ${trainData.from}-${trainData.to} exhibits extreme Kurtosis amplification. Automated signal systems warned.`;
+        let logMsg = `[CRITICAL MONITOR] Sector ${trainData.from}-${trainData.to} exhibits extreme Kurtosis amplification. Automated signal systems warned.`;
+        logsBox.innerHTML = `<p class="text-orange">${logMsg}</p>` + logsBox.innerHTML;
     }
-    logsBox.innerHTML = `<p class="${logClass}">${logMsg}</p>` + logsBox.innerHTML;
 }
 
 function toggleDisplayMode(mode) {
